@@ -22,7 +22,7 @@ const int columnas = 7;
 const int vacío = 0;
 const int JUGADOR = 1;
 const int IA = 2;
-const int profundidad_max = 8; // Profundidad máxima para limitar el árbol de búsqueda de la IA al jugar
+const int profundidad_max = 7; // Profundidad máxima para limitar el árbol de búsqueda de la IA al jugar
 
 class Tablero {
     vector<vector<int>> tablero;
