@@ -250,19 +250,20 @@ int main() {
                 cout << "Tu turno. Elige una columna (1-7): ";
                 inputFile >> columna;  // Leer el movimiento desde el archivo de texto
 
-                // Verificar que la columna sea válida
-                if (inputFile.fail() || columna < 1 || columna > 7) {
-                    cout << "Columna fuera de rango o inválida. Elige entre 1 y 7." << endl;
-                    continue; // Repetir turno si la entrada no es válida
+                // Validar que el archivo tiene datos y la columna es válida
+                while (inputFile.fail() || columna < 1 || columna > 7 || !tablero.esMovimientoValido(columna - 1)) {
+                    // Si el movimiento no es válido, pedir un nuevo movimiento
+                    cout << "Columna inválida o llena. Intenta con otra columna (1-7): ";
+                    inputFile.clear();  // Limpiar el estado de error de inputFile
+                    inputFile.ignore(numeric_limits<streamsize>::max(), '\n');  // Ignorar cualquier dato no válido
+                    inputFile >> columna;  // Intentar leer una nueva columna
                 }
 
-                // Ajustar a índice 0-6 para las columnas
+                // Ajustar la columna para que sea 0-6 internamente
                 columna -= 1;
 
-                if (!tablero.hacerMovimiento(columna, JUGADOR)) {
-                    cout << "Columna llena. Intenta otra columna." << endl;
-                    continue; // Si la columna está llena, se repite el turno
-                }
+                // Hacer el movimiento si es válido
+                tablero.hacerMovimiento(columna, JUGADOR);
             }
         }
         turnoIA = !turnoIA; // Cambiar de turno
@@ -270,7 +271,3 @@ int main() {
     cout << "Gracias por jugar Conecta Cuatro. ¡Adiós!" << endl;
     return 0;
 }
-
-
-
-
