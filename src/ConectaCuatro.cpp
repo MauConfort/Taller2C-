@@ -183,8 +183,9 @@ int main() {
         std::cerr << "Error: No se pudo abrir el archivo de entrada." << std::endl;
         return 1;
     }
+
     Tablero tablero;
-    bool turnoIA = false;
+    bool turnoIA = false; // Determina si es el turno de la IA o del jugador
     cout << "========================" << endl;
     cout << "¡Bienvenido a Conecta Cuatro!" << endl;
     cout << "========================" << endl;
@@ -193,8 +194,10 @@ int main() {
     cout << "- El objetivo es conectar 4 fichas consecutivas antes que tu rival." << endl;
     cout << "- Puede ser por arriba, izquierda, derecha o en diagonal." << endl;
     cout << "========================" << endl;
+
     while (true) {
-        tablero.imprimirTablero();
+        tablero.imprimirTablero(); // Mostrar el tablero actualizado
+
         if (tablero.hayGanador(JUGADOR)) {
             cout << "¡Felicidades! ¡Ganaste!" << endl;
             break;
@@ -207,51 +210,67 @@ int main() {
             cout << "¡Empate! Nadie gana." << endl;
             break;
         }
+
         if (turnoIA) {
             cout << "Turno de la IA..." << endl;
             int mejorMovimiento = -1;
             int mejorEval = numeric_limits<int>::min();
-            for (int col = 0; col < columnas; ++col) {
-                if (tablero.esMovimientoValido(col)) {
-                    tablero.hacerMovimiento(col, IA);
-                    int eval = minimax(tablero, profundidad_max, false, numeric_limits<int>::min(),
-                                       numeric_limits<int>::max(), IA);
-                    tablero.deshacerMovimiento(col);
-                    if (eval > mejorEval) {
-                        mejorEval = eval;
-                        mejorMovimiento = col;
-                    }
-                }
-            }
-            tablero.hacerMovimiento(mejorMovimiento, IA);
-        } else {
-            // Primero intentamos bloquear a la IA
+            // Primero intentamos bloquear, si es necesario
             int columnaDefensa = tablero.detectarBloqueo();
             if (columnaDefensa != -1) {
-                cout << "¡Bloqueando la IA en la columna " << columnaDefensa + 1 << "!" << endl;
+                // Si hay un bloqueo necesario, la IA lo hace
+                cout << "¡Bloqueando en la columna " << columnaDefensa + 1 << "!" << endl;
+                tablero.hacerMovimiento(columnaDefensa, IA);
+            } else {
+                // Si no hay un bloqueo, la IA elige el mejor movimiento posible
+                for (int col = 0; col < columnas; ++col) {
+                    if (tablero.esMovimientoValido(col)) {
+                        tablero.hacerMovimiento(col, IA);
+                        int eval = minimax(tablero, profundidad_max, false, numeric_limits<int>::min(),
+                                           numeric_limits<int>::max(), IA);
+                        tablero.deshacerMovimiento(col);
+                        if (eval > mejorEval) {
+                            mejorEval = eval;
+                            mejorMovimiento = col;
+                        }
+                    }
+                }
+                tablero.hacerMovimiento(mejorMovimiento, IA);
+            }
+        } else {
+            // Si no es el turno de la IA, es el turno del jugador
+            int columnaDefensa = tablero.detectarBloqueo();
+            if (columnaDefensa != -1) {
+                // Si hay necesidad de bloquear, lo hace
+                cout << "¡Bloqueando en la columna " << columnaDefensa + 1 << "!" << endl;
                 tablero.hacerMovimiento(columnaDefensa, JUGADOR);
             } else {
-                // Si no hay necesidad de bloquear, el jugador puede elegir una jugada normal
-                cout << "Tu turno. Elige una columna (1-7): ";
+                // Si no es necesario bloquear, el jugador hace un movimiento normal
                 int columna;
-                inputFile >> columna;
+                cout << "Tu turno. Elige una columna (1-7): ";
+                inputFile >> columna;  // Leer el movimiento desde el archivo de texto
 
-                if (columna < 1 || columna > 7) {
-                    cout << "Columna fuera de rango. Elige entre 1 y 7." << endl;
-                    continue;
+                // Verificar que la columna sea válida
+                if (inputFile.fail() || columna < 1 || columna > 7) {
+                    cout << "Columna fuera de rango o inválida. Elige entre 1 y 7." << endl;
+                    continue; // Repetir turno si la entrada no es válida
                 }
-                if (!tablero.hacerMovimiento(columna - 1, JUGADOR)) {
+
+                // Ajustar a índice 0-6 para las columnas
+                columna -= 1;
+
+                if (!tablero.hacerMovimiento(columna, JUGADOR)) {
                     cout << "Columna llena. Intenta otra columna." << endl;
-                } else {
-                    break; // Salimos del bucle si el movimiento es válido
+                    continue; // Si la columna está llena, se repite el turno
                 }
             }
         }
-        turnoIA = !turnoIA;
+        turnoIA = !turnoIA; // Cambiar de turno
     }
     cout << "Gracias por jugar Conecta Cuatro. ¡Adiós!" << endl;
     return 0;
 }
+
 
 
 
