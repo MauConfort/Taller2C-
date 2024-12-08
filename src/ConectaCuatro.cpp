@@ -209,7 +209,7 @@ int main() {
         } else {
             cout << "Tu turno. Elige una columna (1-7): ";
             int columna;
-            cin >> columna;
+            inputFile >> columna;
 
             if (columna < 1 || columna > 7 || !tablero.hacerMovimiento(columna - 1, JUGADOR)) {
                 cout << "Movimiento inválido. Intenta de nuevo." << endl;
@@ -218,7 +218,6 @@ int main() {
         }
         turnoIA = !turnoIA;
     }
-
     cout << "Gracias por jugar Conecta Cuatro. ¡Adiós!" << endl;
     return 0;
 }
