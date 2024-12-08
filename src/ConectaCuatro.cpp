@@ -238,7 +238,8 @@ int main() {
                 tablero.hacerMovimiento(mejorMovimiento, IA);
             }
         } else {
-            // Si no es el turno de la IA, es el turno del jugador
+            // Si no es el turno de la IA, es el turno del jugador :3
+            cout << ¡Turno del jugador! Haz tu movimiento << endl;
             int columnaDefensa = tablero.detectarBloqueo();
             if (columnaDefensa != -1) {
                 // Si hay necesidad de bloquear, lo hace
