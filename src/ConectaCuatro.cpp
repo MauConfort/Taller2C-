@@ -17,11 +17,14 @@
 
 using namespace std;
 
+// Tamaño original de las filas del tablero.
 const int filas = 6;
+// Tamaño original de las columnas del tablero.
 const int columnas = 7;
 const int vacío = 0;
 const int JUGADOR = 1;
 const int IA = 2;
+// Dificultad de la ia dentro de las limitaciones del juego.
 const int profundidad_max = 7;
 
 class Tablero {
