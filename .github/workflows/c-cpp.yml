@@ -1,4 +1,4 @@
-name: Compila C++ Code
+name: Compila Código C++ 
 on:
   push:
     branches:
