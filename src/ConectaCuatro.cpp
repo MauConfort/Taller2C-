@@ -181,7 +181,7 @@ int minimax(Tablero& tablero, int profundidad, bool esIA, int alpha, int beta, i
     }
 }
 int main() {
-    std::ifstream inputFile("movimientos.txt"); // Archivo de entrada sobre los movimientos del usuario
+    std::ifstream inputFile("Jugador.txt"); // Archivo de entrada sobre los movimientos del usuario
     if (!inputFile) {
         std::cerr << "Error: No se pudo abrir el archivo de entrada." << std::endl;
         return 1;
