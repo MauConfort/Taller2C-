@@ -160,19 +160,26 @@ int minimax(Tablero& tablero, int profundidad, bool esIA, int alpha, int beta, i
 int main() {
     Tablero tablero;
     bool turnoIA = false;
-    cout << "Bienvenido a Conecta Cuatro!" << endl;
+    cout << "========================" << endl;
+    cout << "¡Bienvenido a Conecta Cuatro!" << endl;
+    cout << "========================" << endl;
+    cout << "Instrucciones: " << endl;
+    cout << "- Juega seleccionando columnas del 1 al 7." << endl;
+    cout << "- El objetivo es conectar 4 fichas consecutivas antes que tu rival." << endl;
+    cout << "- Puede ser por arriba, izquierda, derecha o en diagonal." << endl;
+    cout << "========================" << endl;
     while (true) {
         tablero.imprimirTablero();
         if (tablero.hayGanador(JUGADOR)) {
-            cout << "¡Ganaste!" << endl;
+            cout << "¡Felicidades! ¡Ganaste!" << endl;
             break;
         }
         if (tablero.hayGanador(IA)) {
-            cout << "La IA gana." << endl;
+            cout << "La IA gana. ¡Suerte para la próxima!" << endl;
             break;
         }
         if (tablero.estaLleno()) {
-            cout << "¡Empate!" << endl;
+            cout << "¡Empate! Nadie gana." << endl;
             break;
         }
         if (turnoIA) {
@@ -196,12 +203,16 @@ int main() {
             cout << "Tu turno. Elige una columna (1-7): ";
             int columna;
             cin >> columna;
-            if (!tablero.hacerMovimiento(columna - 1, JUGADOR)) {
+
+            if (columna < 1 || columna > 7 || !tablero.hacerMovimiento(columna - 1, JUGADOR)) {
                 cout << "Movimiento inválido. Intenta de nuevo." << endl;
                 continue;
             }
         }
         turnoIA = !turnoIA;
     }
+
+    cout << "Gracias por jugar Conecta Cuatro. ¡Adiós!" << endl;
     return 0;
 }
+
