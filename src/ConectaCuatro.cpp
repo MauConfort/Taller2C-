@@ -28,6 +28,7 @@ class Tablero {
     vector<vector<int>> tablero;
 public:
     Tablero() : tablero(filas, vector<int>(columnas, vacío)) {}
+
     void imprimirTablero() {
         for (const auto& fila : tablero) {
             for (int celda : fila) {
@@ -35,7 +36,7 @@ public:
             }
             cout << endl;
         }
-        cout << "1 2 3 4 5 6 7" << endl;
+        cout << "1 2 3 4 5 6 7" << endl; // Indicador de columnas
     }
     bool esMovimientoValido(int columna) {
         return columna >= 0 && columna < columnas && tablero[0][columna] == vacío;
@@ -61,10 +62,10 @@ public:
     bool hayGanador(int jugador) {
         for (int fila = 0; fila < filas; ++fila) {
             for (int col = 0; col < columnas; ++col) {
-                if (checkDireccion(fila, col, 0, 1, jugador) || 
-                    checkDireccion(fila, col, 1, 0, jugador) || 
-                    checkDireccion(fila, col, 1, 1, jugador) || 
-                    checkDireccion(fila, col, 1, -1, jugador)) 
+                if (checkDireccion(fila, col, 0, 1, jugador) || // Horizontal
+                    checkDireccion(fila, col, 1, 0, jugador) || // Vertical
+                    checkDireccion(fila, col, 1, 1, jugador) || // Diagonal derecha
+                    checkDireccion(fila, col, 1, -1, jugador))  // Diagonal izquierda
                     return true;
             }
         }
@@ -75,6 +76,30 @@ public:
             if (esMovimientoValido(col)) return false;
         }
         return true;
+    }
+    int evaluarEstado(int jugador) {
+        int oponente = (jugador == JUGADOR) ? IA : JUGADOR;
+        return contarLineas(jugador, 4) * 1000 - contarLineas(oponente, 4) * 1000 +
+               contarLineas(jugador, 3) * 10 - contarLineas(oponente, 3) * 10 +
+               contarLineas(jugador, 2) * 1 - contarLineas(oponente, 2) * 1;
+    }
+    // Nueva función detectarBloqueo
+    int detectarBloqueo() {
+        for (int fila = 0; fila < filas; ++fila) {
+            for (int col = 0; col < columnas; ++col) {
+                // Revisar las direcciones en las que la IA tiene 3 fichas consecutivas
+                if (checkDireccion(fila, col, 0, 1, IA) || // Horizontal
+                    checkDireccion(fila, col, 1, 0, IA) || // Vertical
+                    checkDireccion(fila, col, 1, 1, IA) || // Diagonal derecha
+                    checkDireccion(fila, col, 1, -1, IA))  // Diagonal izquierda
+                {
+                    if (esMovimientoValido(col)) {
+                        return col; // Retorna la columna en la que bloquear
+                    }
+                }
+            }
+        }
+        return -1; // Si no hay necesidad de bloquear
     }
 private:
     bool checkDireccion(int fila, int col, int deltaFila, int deltaCol, int jugador) {
@@ -91,8 +116,35 @@ private:
         }
         return count == 4;
     }
+    int contarLineas(int jugador, int longitud) {
+        int total = 0;
+        for (int fila = 0; fila < filas; ++fila) {
+            for (int col = 0; col < columnas; ++col) {
+                if (cuentaLineasDireccion(fila, col, 0, 1, jugador, longitud) ||
+                    cuentaLineasDireccion(fila, col, 1, 0, jugador, longitud) ||
+                    cuentaLineasDireccion(fila, col, 1, 1, jugador, longitud) ||
+                    cuentaLineasDireccion(fila, col, 1, -1, jugador, longitud)) {
+                    total++;
+                }
+            }
+        }
+        return total;
+    }
+    bool cuentaLineasDireccion(int fila, int col, int deltaFila, int deltaCol, int jugador, int longitud) {
+        int count = 0;
+        for (int i = 0; i < longitud; ++i) {
+            int nuevaFila = fila + i * deltaFila;
+            int nuevaCol = col + i * deltaCol;
+            if (nuevaFila >= 0 && nuevaFila < filas && nuevaCol >= 0 && nuevaCol < columnas &&
+                (tablero[nuevaFila][nuevaCol] == jugador || tablero[nuevaFila][nuevaCol] == vacío)) {
+                ++count;
+            } else {
+                break;
+            }
+        }
+        return count == longitud;
+    }
 };
-
 int minimax(Tablero& tablero, int profundidad, bool esIA, int alpha, int beta, int jugador) {
     if (tablero.hayGanador(JUGADOR)) return -1000 + profundidad;
     if (tablero.hayGanador(IA)) return 1000 - profundidad;
@@ -125,23 +177,24 @@ int minimax(Tablero& tablero, int profundidad, bool esIA, int alpha, int beta, i
         return minEval;
     }
 }
-
 int main() {
-    ifstream inputFile("movimientos.txt");
+    std::ifstream inputFile("movimientos.txt"); // Archivo de entrada sobre los movimientos del usuario
     if (!inputFile) {
-        cerr << "Error: No se pudo abrir el archivo de entrada." << endl;
+        std::cerr << "Error: No se pudo abrir el archivo de entrada." << std::endl;
         return 1;
     }
-
     Tablero tablero;
     bool turnoIA = false;
-    int jugadorMovimiento;
-
+    cout << "========================" << endl;
     cout << "¡Bienvenido a Conecta Cuatro!" << endl;
-
+    cout << "========================" << endl;
+    cout << "Instrucciones: " << endl;
+    cout << "- Juega seleccionando columnas del 1 al 7." << endl;
+    cout << "- El objetivo es conectar 4 fichas consecutivas antes que tu rival." << endl;
+    cout << "- Puede ser por arriba, izquierda, derecha o en diagonal." << endl;
+    cout << "========================" << endl;
     while (true) {
         tablero.imprimirTablero();
-
         if (tablero.hayGanador(JUGADOR)) {
             cout << "¡Felicidades! ¡Ganaste!" << endl;
             break;
@@ -154,7 +207,6 @@ int main() {
             cout << "¡Empate! Nadie gana." << endl;
             break;
         }
-
         if (turnoIA) {
             cout << "Turno de la IA..." << endl;
             int mejorMovimiento = -1;
@@ -173,23 +225,33 @@ int main() {
             }
             tablero.hacerMovimiento(mejorMovimiento, IA);
         } else {
-            cout << "Tu turno. Elige una columna (1-7): ";
-            if (!(inputFile >> jugadorMovimiento) || jugadorMovimiento < 1 || jugadorMovimiento > 7) {
-                cout << "Movimiento inválido o archivo vacío. Terminado." << endl;
-                break;
-            }
+            // Primero intentamos bloquear a la IA
+            int columnaDefensa = tablero.detectarBloqueo();
+            if (columnaDefensa != -1) {
+                cout << "¡Bloqueando la IA en la columna " << columnaDefensa + 1 << "!" << endl;
+                tablero.hacerMovimiento(columnaDefensa, JUGADOR);
+            } else {
+                // Si no hay necesidad de bloquear, el jugador puede elegir una jugada normal
+                cout << "Tu turno. Elige una columna (1-7): ";
+                int columna;
+                inputFile >> columna;
 
-            if (!tablero.hacerMovimiento(jugadorMovimiento - 1, JUGADOR)) {
-                cout << "Columna llena. Intenta otra columna." << endl;
+                if (columna < 1 || columna > 7) {
+                    cout << "Columna fuera de rango. Elige entre 1 y 7." << endl;
+                    continue;
+                }
+                if (!tablero.hacerMovimiento(columna - 1, JUGADOR)) {
+                    cout << "Columna llena. Intenta otra columna." << endl;
+                } else {
+                    break; // Salimos del bucle si el movimiento es válido
+                }
             }
         }
-
         turnoIA = !turnoIA;
     }
-
-    inputFile.close();
     cout << "Gracias por jugar Conecta Cuatro. ¡Adiós!" << endl;
     return 0;
 }
+
 
 
