@@ -16,7 +16,7 @@ jobs:
       - name: Set up C++ build environment
         run: sudo apt-get update && sudo apt-get install -y g++
       - name: Crear archivo de entrada
-        run: echo -e "1" > movimientos.txt
+        run: echo -e "1" > primer_movimiento.txt
       - name: Compile code
         run: |
           g++ -o ConectaCuatro src/ConectaCuatro.cpp
