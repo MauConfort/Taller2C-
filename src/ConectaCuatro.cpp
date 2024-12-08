@@ -211,9 +211,14 @@ int main() {
             int columna;
             inputFile >> columna;
 
-            if (columna < 1 || columna > 7 || !tablero.hacerMovimiento(columna - 1, JUGADOR)) {
-                cout << "Movimiento inválido. Intenta de nuevo." << endl;
+            if (columna < 1 || columna > 7) {
+                cout << "Columna fuera de rango. Elige entre 1 y 7." << endl;
                 continue;
+            }
+            if (!tablero.hacerMovimiento(columna - 1, JUGADOR)) {
+                cout << "Columna llena. Intenta otra columna." << endl;
+            } else {
+                break; // Salimos del bucle si el movimiento es válido
             }
         }
         turnoIA = !turnoIA;
