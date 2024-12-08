@@ -12,6 +12,8 @@
 #include <vector>
 // Permitir el uso de Minimax :3
 #include <limits>
+// Como es sabido, el Github no puede con el cin, así que aquí hay un método interactivo vs ia.
+#include <fstream>
 
 using namespace std;
 
@@ -158,6 +160,11 @@ int minimax(Tablero& tablero, int profundidad, bool esIA, int alpha, int beta, i
     }
 }
 int main() {
+    std::ifstream inputFile("input.txt"); // Archivo de entrada
+    if (!inputFile) {
+        std::cerr << "Error: No se pudo abrir el archivo de entrada." << std::endl;
+        return 1;
+    }
     Tablero tablero;
     bool turnoIA = false;
     cout << "========================" << endl;
