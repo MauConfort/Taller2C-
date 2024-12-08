@@ -15,10 +15,13 @@ jobs:
         uses: actions/checkout@v2
       - name: Set up C++ build environment
         run: sudo apt-get update && sudo apt-get install -y g++
-      - name: Crear archivo de entrada
-        run: echo -e "1" > movimientos.txt
+      - name: Crear archivo de entrada inicial
+        run: echo -e "3" > Jugador.txt
+      - name: Mensaje para el jugador
+        run: echo "Este workflow fue creado por Mauricio Muñoz. Ahora si se puede compilar, ¡disfruta el juego Conecta Cuatro :3"
       - name: Compile code
         run: |
           g++ -o ConectaCuatro src/ConectaCuatro.cpp
           chmod +x ConectaCuatro
+          echo "Compilación exitosa. Ejecutando el programa..."
           ./ConectaCuatro  # Ejecuta el programa compilado
