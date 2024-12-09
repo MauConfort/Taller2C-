@@ -13,9 +13,10 @@
 #include <fstream>
 
 using namespace std;
-/*
-* @brief Dimensiones del tablero original de Conecta Cuatro.
-*/
+
+/**
+ * @brief Dimensiones del tablero original de Conecta Cuatro.
+ */
 const int filas = 6; /**< Número de filas del tablero. */
 const int columnas = 7; /**< Número de columnas del tablero. */
 const int vacío = 0; /**< Valor que representa una celda vacía. */
@@ -35,6 +36,7 @@ public:
      * Inicializa el tablero con celdas vacías.
      */
     Tablero() : tablero(filas, vector<int>(columnas, vacío)) {}
+
     /**
      * @brief Imprime el estado actual del tablero en consola.
      */
@@ -47,6 +49,7 @@ public:
         }
         cout << "1 2 3 4 5 6 7" << endl;
     }
+
     /**
      * @brief Verifica si un movimiento en la columna dada es válido.
      * @param columna Índice de la columna (0 a 6).
@@ -55,6 +58,7 @@ public:
     bool esMovimientoValido(int columna) {
         return columna >= 0 && columna < columnas && tablero[0][columna] == vacío;
     }
+
     /**
      * @brief Realiza un movimiento colocando una ficha en la columna dada.
      * @param columna Índice de la columna (0 a 6).
@@ -71,6 +75,7 @@ public:
         }
         return false;
     }
+
     /**
      * @brief Revierte el último movimiento en la columna dada.
      * @param columna Índice de la columna (0 a 6).
@@ -83,6 +88,7 @@ public:
             }
         }
     }
+
     /**
      * @brief Verifica si el jugador dado ha ganado el juego.
      * @param jugador Identificador del jugador (JUGADOR o IA).
@@ -100,6 +106,7 @@ public:
         }
         return false;
     }
+
     /**
      * @brief Verifica si el tablero está lleno.
      * @return `true` si el tablero está lleno; de lo contrario, `false`.
@@ -110,6 +117,7 @@ public:
         }
         return true;
     }
+
     /**
      * @brief Evalúa el estado actual del tablero para un jugador.
      * @param jugador Identificador del jugador (JUGADOR o IA).
@@ -121,6 +129,7 @@ public:
                contarLineas(jugador, 3) * 10 - contarLineas(oponente, 3) * 10 +
                contarLineas(jugador, 2) * 1 - contarLineas(oponente, 2) * 1;
     }
+
     /**
      * @brief Detecta si la IA necesita bloquear al jugador en una columna específica.
      * @return Índice de la columna para bloquear, o `-1` si no se requiere bloqueo.
@@ -165,6 +174,7 @@ private:
         }
         return count == 4;
     }
+
     /**
      * @brief Cuenta las líneas potenciales de una longitud específica que puede formar un jugador.
      * @param jugador Identificador del jugador (JUGADOR o IA).
@@ -185,6 +195,7 @@ private:
         }
         return total;
     }
+
     /**
      * @brief Verifica si existe una línea continua o potencial para un jugador en una dirección específica.
      * @param fila Índice de la fila de inicio.
@@ -210,6 +221,7 @@ private:
         return count == longitud;
     }
 };
+
 /**
  * @brief Implementa el algoritmo Minimax con poda alpha-beta para evaluar y seleccionar el mejor movimiento.
  * @param tablero Referencia al objeto Tablero que representa el estado actual del juego.
@@ -255,13 +267,10 @@ int minimax(Tablero& tablero, int profundidad, bool esIA, int alpha, int beta, i
 }
 
 int main() {
-    ifstream inputFile("Jugador.txt");
-    if (!inputFile) {
-        cerr << "Error: No se pudo abrir el archivo de entrada." << endl;
-        return 1;
-    }
     Tablero tablero;
     bool turnoIA = false;
+    int columna;
+
     cout << "========================" << endl;
     cout << "¡Bienvenido a Conecta Cuatro!" << endl;
     cout << "========================" << endl;
@@ -273,6 +282,7 @@ int main() {
 
     while (true) {
         tablero.imprimirTablero();
+
         if (tablero.hayGanador(JUGADOR)) {
             cout << "¡Felicidades! ¡Ganaste!" << endl;
             break;
@@ -285,6 +295,7 @@ int main() {
             cout << "¡Empate! Nadie gana." << endl;
             break;
         }
+
         if (turnoIA) {
             cout << "Turno de la IA..." << endl;
             int mejorMovimiento = -1;
@@ -315,24 +326,19 @@ int main() {
                 cout << "¡Bloqueando en la columna " << columnaDefensa + 1 << "!" << endl;
                 tablero.hacerMovimiento(columnaDefensa, JUGADOR);
             } else {
-                int columna;
-                if (inputFile.eof()) {
-                    cout << "No hay más movimientos en el archivo. Ahora, ingresa una columna (1-7): ";
+                // Usando cin para que el jugador elija una columna
+                do {
+                    cout << "Selecciona una columna (1-7): ";
                     cin >> columna;
-                } else {
-                    inputFile >> columna;
-                }
-                while (inputFile.fail() || columna < 1 || columna > 7 || !tablero.esMovimientoValido(columna - 1)) {
-                    cout << "Columna inválida o llena. Intenta con otra columna (1-7): ";
-                    inputFile.clear();
-                    inputFile.ignore(numeric_limits<streamsize>::max(), '\n');
-                    inputFile >> columna;
-                }
-                columna -= 1;
+                    columna--;  // Convertir columna a índice 0-6
+                } while (columna < 0 || columna >= 7 || !tablero.esMovimientoValido(columna));
+
                 tablero.hacerMovimiento(columna, JUGADOR);
             }
         }
+
         turnoIA = !turnoIA;
     }
     cout << "Gracias por jugar Conecta Cuatro. ¡Adiós!" << endl;
 }
+
