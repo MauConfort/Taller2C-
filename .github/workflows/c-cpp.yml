@@ -16,7 +16,7 @@ jobs:
       - name: Set up C++ build environment
         run: sudo apt-get update && sudo apt-get install -y g++
       - name: Crear archivo de entrada inicial
-        run: echo -e "" > Jugador.txt
+        run: echo -e "1\n2\n3\n4\n5\n6\n7" > Jugador.txt  # Simula movimientos con columnas específicas
       - name: Mensaje para el jugador
         run: echo "Este workflow fue creado por Mauricio Muñoz. Ahora si se puede compilar, ¡disfruta el juego Conecta Cuatro :3"
       - name: Compile code
@@ -24,4 +24,7 @@ jobs:
           g++ -o ConectaCuatro src/ConectaCuatro.cpp
           chmod +x ConectaCuatro
           echo "Compilación exitosa. Ejecutando el programa..."
-          ./ConectaCuatro  # Ejecuta el programa compilado
+      - name: Ejecutar el programa
+        run: |
+          ./ConectaCuatro  # Ejecuta el programa compilado, usando el archivo Jugador.txt como entrada
+
