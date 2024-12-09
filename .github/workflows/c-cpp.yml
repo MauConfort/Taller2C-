@@ -2,28 +2,26 @@ name: Compila Código C++
 on:
   push:
     branches:
-      - master
+      - master  # Ejecutará cuando haya un push a la rama master
   pull_request:
     branches:
-      - master
+      - master  # Ejecutará en pull request a la rama master
+
 jobs:
   build:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10  # Máximo tiempo necesario
+    runs-on: ubuntu-latest  # Usamos un entorno Ubuntu para compilar
+    timeout-minutes: 10  # Ajusta según sea necesario
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2  # Obtiene tu código desde GitHub
+
       - name: Set up C++ build environment
-        run: sudo apt-get update && sudo apt-get install -y g++
-      - name: Crear archivo de entrada inicial
-        run: echo -e "1\n2\n3\n4\n5\n6\n7" > Jugador.txt  # Simula movimientos con columnas específicas
-      - name: Mensaje para el jugador
-        run: echo "Este workflow fue creado por Mauricio Muñoz. Ahora si se puede compilar, ¡disfruta el juego Conecta Cuatro :3!"
+        run: sudo apt-get update && sudo apt-get install -y g++  # Instala el compilador g++
+
       - name: Compile code
         run: |
-          g++ -o ConectaCuatro src/ConectaCuatro.cpp
-          chmod +x ConectaCuatro
+          g++ -o ConectaCuatro src/ConectaCuatro.cpp  # Compila el código fuente
+          chmod +x ConectaCuatro  # Asegúrate de que el ejecutable sea ejecutable
           echo "Compilación exitosa. Ejecutando el programa..."
-      - name: Ejecutar el programa
-        run: |
-          ./ConectaCuatro  # Ejecuta el programa compilado, usando el archivo Jugador.txt como entrada
+          ./ConectaCuatro  # Ejecuta el programa compilado
+
