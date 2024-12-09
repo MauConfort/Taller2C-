@@ -15,7 +15,6 @@
 using namespace std;
 /*
 * @brief Dimensiones del tablero original de Conecta Cuatro.
-*
 */
 const int filas = 6; /**< Número de filas del tablero. */
 const int columnas = 7; /**< Número de columnas del tablero. */
@@ -261,10 +260,8 @@ int main() {
         cerr << "Error: No se pudo abrir el archivo de entrada." << endl;
         return 1;
     }
-
     Tablero tablero;
     bool turnoIA = false;
-
     cout << "========================" << endl;
     cout << "¡Bienvenido a Conecta Cuatro!" << endl;
     cout << "========================" << endl;
@@ -276,7 +273,6 @@ int main() {
 
     while (true) {
         tablero.imprimirTablero();
-
         if (tablero.hayGanador(JUGADOR)) {
             cout << "¡Felicidades! ¡Ganaste!" << endl;
             break;
@@ -289,7 +285,6 @@ int main() {
             cout << "¡Empate! Nadie gana." << endl;
             break;
         }
-
         if (turnoIA) {
             cout << "Turno de la IA..." << endl;
             int mejorMovimiento = -1;
@@ -327,14 +322,12 @@ int main() {
                 } else {
                     inputFile >> columna;
                 }
-
                 while (inputFile.fail() || columna < 1 || columna > 7 || !tablero.esMovimientoValido(columna - 1)) {
                     cout << "Columna inválida o llena. Intenta con otra columna (1-7): ";
                     inputFile.clear();
                     inputFile.ignore(numeric_limits<streamsize>::max(), '\n');
                     inputFile >> columna;
                 }
-
                 columna -= 1;
                 tablero.hacerMovimiento(columna, JUGADOR);
             }
@@ -343,4 +336,3 @@ int main() {
     }
     cout << "Gracias por jugar Conecta Cuatro. ¡Adiós!" << endl;
 }
-
