@@ -16,7 +16,7 @@ jobs:
       - name: Set up C++ build environment
         run: sudo apt-get update && sudo apt-get install -y g++
       - name: Crear archivo de entrada inicial
-        run: echo -e "3" > Jugador.txt
+        run: echo -e "" > Jugador.txt
       - name: Mensaje para el jugador
         run: echo "Este workflow fue creado por Mauricio Muñoz. Ahora si se puede compilar, ¡disfruta el juego Conecta Cuatro :3"
       - name: Compile code
