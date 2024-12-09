@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 10  # Ajusta según sea necesario
+    timeout-minutes: 10  # Máximo tiempo necesario
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -18,7 +18,7 @@ jobs:
       - name: Crear archivo de entrada inicial
         run: echo -e "1\n2\n3\n4\n5\n6\n7" > Jugador.txt  # Simula movimientos con columnas específicas
       - name: Mensaje para el jugador
-        run: echo "Este workflow fue creado por Mauricio Muñoz. Ahora si se puede compilar, ¡disfruta el juego Conecta Cuatro :3"
+        run: echo "Este workflow fue creado por Mauricio Muñoz. Ahora si se puede compilar, ¡disfruta el juego Conecta Cuatro :3!"
       - name: Compile code
         run: |
           g++ -o ConectaCuatro src/ConectaCuatro.cpp
@@ -27,4 +27,3 @@ jobs:
       - name: Ejecutar el programa
         run: |
           ./ConectaCuatro  # Ejecuta el programa compilado, usando el archivo Jugador.txt como entrada
-
