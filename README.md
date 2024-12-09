@@ -44,7 +44,7 @@ La **poda alfa-beta** es una optimización del algoritmo Minimax que mejora la e
 ## Diagrama del árbol de juego para un caso simple (ejemplo: primeros 3 movimientos)
 
 Aquí se muestra un ejemplo básico de cómo se construye el árbol de decisiones para los primeros movimientos en el juego.
-
+![Diagrama de árbol con primeros movimientos](Arbol_Codigo.png)
 
 Este árbol ilustra cómo se evaluan las decisiones posibles tanto para el jugador como para la IA en función de la situación del tablero.
 
