@@ -15,7 +15,7 @@ Este proyecto implementa el clásico juego **Conecta Cuatro** donde el jugador j
     ```
 2. Ingresa al directorio del proyecto:
     ```bash
-    cd conecta-cuatro
+    cd Taller2C-
     ```
 3. Compila el código:
     ```bashC
