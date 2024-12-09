@@ -16,6 +16,7 @@ using namespace std;
 /*
 * @brief Dimensiones del tablero original de Conecta Cuatro.
 *
+*/
 const int filas = 6; /**< Número de filas del tablero. */
 const int columnas = 7; /**< Número de columnas del tablero. */
 const int vacío = 0; /**< Valor que representa una celda vacía. */
