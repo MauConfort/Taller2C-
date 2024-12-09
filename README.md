@@ -11,7 +11,7 @@ Este proyecto implementa el clásico juego **Conecta Cuatro** donde el jugador j
 
 1. Clona el repositorio en tu máquina local:
     ```bash
-    git clone https://github.com/MaurConfort/conecta-cuatro.git
+    git clone https://github.com/MauConfort/Taller2C-.git
     ```
 2. Ingresa al directorio del proyecto:
     ```bash
