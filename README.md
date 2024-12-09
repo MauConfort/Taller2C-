@@ -1,8 +1,9 @@
 # Conecta Cuatro - Juego con IA
-Nombre: Mauricio Javier Muñoz Guerrero
-RUT: 21.542.213-5
-Correo: mauricio.munoz01@alumnos.ucn.cl
-Fecha: 09/12/2024
+Nombre: Mauricio Javier Muñoz Guerrero;
+RUT: 21.542.213-5;
+Correo: mauricio.munoz01@alumnos.ucn.cl;
+Paralelo: C2;
+Fecha: 09/12/2024;
 
 Este proyecto implementa el clásico juego **Conecta Cuatro** donde el jugador juega contra la inteligencia artificial utilizando el algoritmo **Minimax** con **poda alfa-beta** para decidir los movimientos de la IA.
 
