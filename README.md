@@ -70,7 +70,7 @@ Para compilar y ejecutar este proyecto, necesitas:
     ```bash
     g++ -o conectaCuatro src/ConectaCuatro.cpp
     ```
-4. Ejecuta el programa:
+4. Ejecuta el programa (al terminar la partida, escribir el mismo para empezar otra nueva):
     ```bash
     ./conectaCuatro
     ```
