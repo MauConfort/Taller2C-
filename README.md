@@ -5,8 +5,57 @@ Correo: mauricio.munoz01@alumnos.ucn.cl;
 Paralelo: C2;
 Fecha: 09/12/2024;
 
-Este proyecto implementa el clásico juego **Conecta Cuatro** donde el jugador juega contra la inteligencia artificial utilizando el algoritmo **Minimax** con **poda alfa-beta** para decidir los movimientos de la IA.
+Este es un proyecto de **Conecta Cuatro**, implementado en **C++**. El juego permite que el jugador compita contra una **IA** utilizando el algoritmo **Minimax con poda alpha-beta** para seleccionar los mejores movimientos de la IA. El juego seleccionado es **Conecta Cuatro** en su formato original.
 
+## Tabla de contenidos
+- [Descripción](#descripción)
+- [Cómo jugar](#cómo-jugar)
+- [Características](#características)
+- [Requisitos](#requisitos)
+- [Instrucciones para ejecutar el programa](#instrucciones-para-ejecutar-el-programa)
+- [Algoritmo Minimax](#algoritmo-minimax)
+- [Poda Alfa Beta](#poda-alfa-beta)
+- [Explicación del juego](#explicación-del-juego)
+- [Diagrama del árbol de juego para un caso simple](#diagrama-del-árbol-de-juego-para-un-caso-simple)
+- [Análisis de complejidad temporal del algoritmo, antes y después de aplicar la poda](#análisis-de-complejidad-temporal-del-algoritmo-antes-y-después-de-aplicar-la-poda)
+- [Notas adicionales](#notas-adicionales)
+- [Agradecimientos](#agradecimientos)
+
+---
+
+## Descripción
+
+El objetivo de este juego es conectar cuatro fichas consecutivas en el tablero antes que tu oponente, ya sea en forma horizontal, vertical o diagonal. Compite contra una IA desafiante o simplemente disfruta el juego en solitario.
+
+---
+
+## Cómo jugar
+
+1. Al iniciar el programa, se imprimirá el tablero vacío.  
+2. El jugador y la IA alternan turnos colocando fichas en las columnas del tablero. El jugador es él que da el primer movimiento.  
+3. Durante tu turno, selecciona una columna ingresando un número del 1 al 7.  
+4. Gana el primero que logre conectar 4 fichas consecutivas en cualquier dirección disponible.  
+5. ¡Cuidado! La IA intentará bloquear tus jugadas y ganar estratégicamente. Usa tu cerebro si tienes para intentar ganar.
+
+---
+
+## Características
+
+- **Tablero dinámico:** Representación visual del estado actual del tablero.
+- **Algoritmo Minimax:** IA optimizada para buscar las mejores jugadas con poda alfa-beta.
+- **Detección de bloqueos:** La IA anticipa y bloquea tus intentos de ganar.
+- **Interfaz intuitiva:** Simple y fácil de entender para cualquier jugador.
+- **Sistema de evaluación:** La IA evalúa cada estado del tablero para maximizar sus posibilidades de ganar.
+
+---
+## Requisitos
+
+Para compilar y ejecutar este proyecto, necesitas:  
+
+1. **Un compilador de C++** compatible con C++11 o superior, como `g++`.  
+2. Un terminal para ejecutar el programa. Preferible que sea GitBash.
+
+---
 ## Instrucciones para ejecutar el programa
 
 1. Clona el repositorio en tu máquina local:
@@ -18,22 +67,18 @@ Este proyecto implementa el clásico juego **Conecta Cuatro** donde el jugador j
     cd Taller2C-
     ```
 3. Compila el código:
-    ```bashC
+    ```bash
     g++ -o conectaCuatro src/ConectaCuatro.cpp
     ```
 4. Ejecuta el programa:
     ```bash
     ./conectaCuatro
     ```
-5. El jugador puede modificar el archivo `Jugador.txt` para agregar los movimientos, con la opción de escribir los movimientos manualmente si el archivo se queda sin movimientos.
-
-## Explicaciones sobre el algoritmo utilizado
-
-### Algoritmo Minimax
+## Algoritmo Minimax
 
 El algoritmo **Minimax** es un algoritmo de búsqueda utilizado en juegos de dos jugadores, donde un jugador intenta maximizar su puntuación (IA) mientras que el otro jugador (humano) intenta minimizar la puntuación del oponente. En este caso, la IA juega para maximizar su puntuación y bloquear las jugadas del jugador.
 
-### Poda Alfa-Beta
+## Poda Alfa-Beta
 
 La **poda alfa-beta** es una optimización del algoritmo Minimax que mejora la eficiencia al reducir la cantidad de nodos evaluados en el árbol de decisiones. Utiliza dos valores, **alfa** y **beta**, para descartar ramas del árbol que no pueden influir en la decisión final.
 
@@ -61,17 +106,18 @@ La **poda alfa-beta** mejora significativamente la eficiencia del algoritmo, red
 
 ## Notas adicionales
 
-1. **Archivos de entrada**:
-   - El programa lee los movimientos del jugador desde un archivo de texto llamado `Jugador.txt`. Si este archivo se queda vacío, el jugador podrá ingresar manualmente sus movimientos a través de la consola.
+1. **Ingreso de movimientos**:
+   - El programa ingresa sus movimientos directamente desde la consola. Solo es necesario introducir el número de la columna (entre el 1 y 7) en la que deseas colocar tu ficha.
 2. **Interfaz del juego**:
-   - El juego muestra un tablero con las fichas de los jugadores representadas por "O" (jugador) y "X" (IA). El jugador selecciona las columnas en las que quiere colocar sus fichas.
-   
-3. **Instrucciones**:
+   - El tablero se representa visualmente en la consola. Las fichas de los jugadores están representadas por "O" (jugador) y "X" (IA). El jugador selecciona las columnas en las que quiere colocar sus fichas. Después de cada turno, se muestra el estado actualizado del tablero.
+3. **Reglas para seleccionar columnas**:
+   - Solo se puede elegir columnas válidas (entre 1 y 7) que tengan espacio disponible. Si seleccionas una columna llena, se te pedirá que elijas nuevamente. Lo mismo sucederá con la IA.
+4. **Instrucciones**:
    - El jugador puede elegir una columna entre 1 y 7 para colocar su ficha.
    - La IA juega utilizando el algoritmo Minimax con poda alfa-beta.
 
 ## Agradecimientos
 
-Gracias por utilizar este programa. ¡Diviértete jugando a Conecta Cuatro!
+Gracias por utilizar este programa que ahora compila. ¡Diviértete jugando a Conecta Cuatro!
 
 
