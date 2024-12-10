@@ -58,11 +58,11 @@ Para compilar y ejecutar este proyecto, necesitas:
 ---
 ## Instrucciones para ejecutar el programa
 
-1. Clona el repositorio en tu máquina local:
+1. Clona el repositorio en tu máquina local (solamente la primera vez):
     ```bash
     git clone https://github.com/MauConfort/Taller2C-.git
     ```
-2. Ingresa al directorio del proyecto:
+2. Ingresa al directorio del proyecto (si ya se realizó el primer paso antes, ir directamente a este):
     ```bash
     cd Taller2C-
     ```
@@ -119,5 +119,5 @@ La **poda alfa-beta** mejora significativamente la eficiencia del algoritmo, red
 ## Agradecimientos
 
 Gracias por utilizar este programa que ahora compila. ¡Diviértete jugando a Conecta Cuatro!
-
+(PD: Originalmente esto era un codigo beta, pero por falta para configurar todo en mi GitHub institucional, lo tuve que mejorar en esta cuenta personal. Espero que no sea molestia, y además lo hice solo en Eclipse pero tuve que cambiar cosas :3).
 
