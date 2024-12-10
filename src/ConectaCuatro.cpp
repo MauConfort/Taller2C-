@@ -273,6 +273,7 @@ int main() {
 
     cout << "========================" << endl;
     cout << "¡Bienvenido a Conecta Cuatro!" << endl;
+    cout << "Aquí su anfitrión Mauricio Javier Muñoz Guerrero para explicarle las instrucciones!" << endl;
     cout << "========================" << endl;
     cout << "Instrucciones: " << endl;
     cout << "- Juega seleccionando columnas del 1 al 7." << endl;
